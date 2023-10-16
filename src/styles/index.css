@@ -12,19 +12,42 @@ body {
   font-size: 20px;
 }
 .pokemon-cards {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
 .pokemon-card {
-  border: 1px solid black;
   border-radius: 1rem;
-  text-align: center;
   background-color: var(--transparent-background);
   padding: 0.5rem;
 }
+.pokemon-card > * {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+}
+
 .home-screen {
   padding: 2rem;
   background-color: var(--transparent-background);
+}
+
+.content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-outcome-message {
+  font-size: 4rem;
+  background-color: var(--transparent-background);
+  padding: 1rem;
+}
+
+.bordered {
+  border: 2px solid black;
+  border-radius: 1rem;
 }

@@ -10,6 +10,7 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
   const [gameOutcome, setGameOutcome] = useState();
   const [numberOfCards, setNumberOfCards] = useState(8);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151")
@@ -60,6 +61,10 @@ function App() {
     setPokemonObjlist([...shuffleArray(pokemonObjlist)]);
   }
 
+  function incrementScore() {
+    setScore(score + 1);
+  }
+
   function onCardClick(event, pokemon) {
     if (duplicateCardClick(pokemon)) {
       setGameOver(true);
@@ -70,6 +75,7 @@ function App() {
       setGameOver(true);
       setGameOutcome("win");
     }
+    incrementScore();
     shufflePokemonObjList();
   }
 
@@ -92,13 +98,16 @@ function App() {
     <div className="content">
       {gameOver ? (
         gameOutcome === "win" ? (
-          <span>You Win!</span>
+          <div className="game-outcome-message bordered">You Win!</div>
         ) : (
-          <span>You Lose</span>
+          <div className="game-outcome-message bordered">You Lose</div>
         )
       ) : startGame ? (
         pokemonObjlist.length > 0 ? (
-          <Cards pokemonObjList={pokemonObjlist} handleClick={onCardClick} />
+          <>
+            <Cards pokemonObjList={pokemonObjlist} handleClick={onCardClick} />
+            <p>Score: {score}</p>
+          </>
         ) : (
           "Loading pokemon..."
         )

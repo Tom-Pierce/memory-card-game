@@ -5,7 +5,7 @@ export default function Cards({ pokemonObjList, handleClick }) {
         return (
           <div
             key={pokemon.id}
-            className="pokemon-card"
+            className="pokemon-card bordered"
             onClick={(event) => {
               handleClick(event, pokemon);
             }}

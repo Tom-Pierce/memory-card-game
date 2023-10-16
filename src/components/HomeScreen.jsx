@@ -4,7 +4,7 @@ export default function HomeScreen({
   setNumberOfCards,
 }) {
   return (
-    <div className="home-screen">
+    <div className="home-screen bordered">
       <button
         type="button"
         onClick={() => {
@@ -15,8 +15,9 @@ export default function HomeScreen({
         Start Game
       </button>
       <label htmlFor="number-of-cards-input">
+        <p>How many cards do you want to memorise?</p>
         <input
-          type="number"
+          type="telephone"
           name="number-of-cards"
           id="number-of-cards-input"
           value={numberOfCards}
