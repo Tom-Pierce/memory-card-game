@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+:root {
+  --transparent-background: rgba(211, 211, 211, 0.5);
+}
+
+body {
+  font-family: "Pixelify Sans", "Roboto", sans-serif;
+  height: 100vh;
+  background-image: url(../assets/background.jpeg);
+  background-size: cover;
+  font-size: 20px;
+}
+.pokemon-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.pokemon-card {
+  border: 1px solid black;
+  border-radius: 1rem;
+  text-align: center;
+  background-color: var(--transparent-background);
+  padding: 0.5rem;
+}
+.home-screen {
+  padding: 2rem;
+  background-color: var(--transparent-background);
+}
