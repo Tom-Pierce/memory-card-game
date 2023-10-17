@@ -13,6 +13,7 @@ export default function HomeScreen({
           id="number-of-cards-input"
           className="bordered"
           max={20}
+          min={1}
           value={numberOfCards}
           onChange={(event) => {
             setNumberOfCards(event.target.value);

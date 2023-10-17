@@ -96,6 +96,7 @@ function App() {
     }
     return false;
   }
+
   function restartGame() {
     if (score >= highScore) setHighScore(score);
     setStartGame(false);
@@ -103,7 +104,6 @@ function App() {
     setScore(0);
     setPokemonObjlist([]);
     setNumberOfCards(0);
-    setNumberOfCards(4);
   }
 
   return (
