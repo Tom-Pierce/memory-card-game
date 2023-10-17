@@ -12,7 +12,7 @@ function App() {
   const [startGame, setStartGame] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [gameOutcome, setGameOutcome] = useState();
-  const [numberOfCards, setNumberOfCards] = useState(8);
+  const [numberOfCards, setNumberOfCards] = useState(10);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
@@ -102,7 +102,8 @@ function App() {
     setGameOver(false);
     setScore(0);
     setPokemonObjlist([]);
-    setNumberOfCards(tmp);
+    setNumberOfCards(0);
+    setNumberOfCards(4);
   }
 
   return (
