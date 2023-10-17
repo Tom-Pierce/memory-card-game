@@ -5,27 +5,29 @@ export default function HomeScreen({
 }) {
   return (
     <div className="home-screen bordered">
-      <button
-        type="button"
-        onClick={() => {
-          setStartGame(true);
-        }}
-        className="start-game-btn"
-      >
-        Start Game
-      </button>
       <label htmlFor="number-of-cards-input">
-        <p>How many cards do you want to memorise?</p>
+        <p>How many pokemon can you memorise from Gen 1?</p>
         <input
-          type="telephone"
+          type="number"
           name="number-of-cards"
           id="number-of-cards-input"
+          className="bordered"
+          max={20}
           value={numberOfCards}
           onChange={(event) => {
             setNumberOfCards(event.target.value);
           }}
         />
       </label>
+      <button
+        type="button"
+        onClick={() => {
+          setStartGame(true);
+        }}
+        className="start-game-btn bordered"
+      >
+        Start Game
+      </button>
     </div>
   );
 }

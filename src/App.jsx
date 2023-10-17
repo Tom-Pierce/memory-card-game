@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import uniqid from "uniqid";
 import Cards from "./components/Cards";
 import HomeScreen from "./components/HomeScreen";
+import Header from "./components/Header";
+import WinScreen from "./components/WinScreen";
+import LoseScreen from "./components/LoseScreen";
 
 function App() {
   const [pokemonList, setPokemonList] = useState(null);
@@ -11,17 +14,16 @@ function App() {
   const [gameOutcome, setGameOutcome] = useState();
   const [numberOfCards, setNumberOfCards] = useState(8);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   useEffect(() => {
     fetch("https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151")
       .then((response) => response.json())
       .then((json) => {
-        setTimeout(() => {
-          setPokemonList(json.results);
-        }, 2000);
+        setPokemonList(json.results);
       })
       .catch((error) => console.error(error));
-  }, [startGame]);
+  }, []);
 
   useEffect(() => {
     if (pokemonList) {
@@ -46,7 +48,7 @@ function App() {
         });
       }
     }
-  }, [pokemonList]);
+  }, [numberOfCards, pokemonList]);
 
   function shuffleArray(array) {
     const newArray = array;
@@ -66,6 +68,7 @@ function App() {
   }
 
   function onCardClick(event, pokemon) {
+    incrementScore();
     if (duplicateCardClick(pokemon)) {
       setGameOver(true);
       setGameOutcome("loss");
@@ -75,7 +78,6 @@ function App() {
       setGameOver(true);
       setGameOutcome("win");
     }
-    incrementScore();
     shufflePokemonObjList();
   }
 
@@ -94,31 +96,51 @@ function App() {
     }
     return false;
   }
+  function restartGame() {
+    if (score >= highScore) setHighScore(score);
+    setStartGame(false);
+    setGameOver(false);
+    setScore(0);
+    setPokemonObjlist([]);
+    setNumberOfCards(tmp);
+  }
+
   return (
-    <div className="content">
-      {gameOver ? (
-        gameOutcome === "win" ? (
-          <div className="game-outcome-message bordered">You Win!</div>
+    <>
+      <Header />
+      <div className="content">
+        {gameOver ? (
+          gameOutcome === "win" ? (
+            <WinScreen restartGame={restartGame} />
+          ) : (
+            <LoseScreen restartGame={restartGame} />
+          )
+        ) : startGame ? (
+          pokemonObjlist.length > 0 ? (
+            <>
+              <div className="scoreboard">
+                <span className="score-indicator">Score: {score}</span>
+                <span className="best-score-indicator">
+                  High Score: {highScore}
+                </span>
+              </div>
+              <Cards
+                pokemonObjList={pokemonObjlist}
+                handleClick={onCardClick}
+              />
+            </>
+          ) : (
+            "Loading pokemon..."
+          )
         ) : (
-          <div className="game-outcome-message bordered">You Lose</div>
-        )
-      ) : startGame ? (
-        pokemonObjlist.length > 0 ? (
-          <>
-            <Cards pokemonObjList={pokemonObjlist} handleClick={onCardClick} />
-            <p>Score: {score}</p>
-          </>
-        ) : (
-          "Loading pokemon..."
-        )
-      ) : (
-        <HomeScreen
-          setStartGame={setStartGame}
-          numberOfCards={numberOfCards}
-          setNumberOfCards={setNumberOfCards}
-        />
-      )}
-    </div>
+          <HomeScreen
+            setStartGame={setStartGame}
+            numberOfCards={numberOfCards}
+            setNumberOfCards={setNumberOfCards}
+          />
+        )}
+      </div>
+    </>
   );
 }
 
